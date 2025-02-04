@@ -1,0 +1,57 @@
+---
+available_modalities:
+  - ieeg
+  - eeg
+indexation:
+  bids_folder_names:
+    participants: /sub*
+    sessions: /ses*
+  bids_identification_files:
+    - dataset_description.json
+    - participants.tsv
+  dataset_metadata_files:
+    - dataset_description.json
+  eeg_metadata_files:
+    - _eeg.json.tsv
+  ieeg_metadata_files:
+    - _ieeg.json
+    - _electrodes.tsv
+  output_file_names:
+    - datasets_metadata
+    - participants_metadata
+    - ieeg_metadata
+    - eeg_metadata
+  participants_files:
+    - participants.tsv
+  participants_metadata_files:
+    - participants.tsv
+fields:
+  dataset_description_json:
+    optional_fields:
+      - Acknowledgements
+      - HowToAcknowledge
+      - Funding
+      - EthicsApprovals
+      - ReferencesAndLinks
+      - DatasetDOI
+    recommended_fields:
+      - HEDVersion
+      - DatasetLinks
+      - DatasetType
+      - License
+      - Authors
+      - GeneratedBy
+      - SourceDatasets
+    required_fields:
+      - Name
+      - BIDSVersion
+  participants_tsv:
+    recommended_fields:
+      - species
+      - age
+      - sex
+      - handedness
+      - strain
+      - strain_rrid
+    required_fields:
+      - participant_id

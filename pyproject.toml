@@ -1,0 +1,17 @@
+[project]
+requires-python = ">=3.9"
+name = "bids-search-tool"
+version = "0.1.0"
+description = ""
+authors = [
+  { name = "Mouna Cerra Cheraka", email = "mouna.cerra-cheraka@chuv.ch" },
+]
+readme = "README.md"
+
+dependencies = [
+    "duckdb",
+    "streamlit",
+    "xlsxwriter",
+    "pyyaml",
+    "pyinstrument"
+]
