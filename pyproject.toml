@@ -1,4 +1,4 @@
-[project]
+[tool.poetry]
 requires-python = ">=3.9"
 name = "bidssearchtool"
 version = "1.0.0"
