@@ -1,17 +1,22 @@
 [tool.poetry]
-requires-python = ">=3.9"
 name = "bidssearchtool"
 version = "1.0.0"
 description = ""
-authors = [
-  { name = "Mouna Cerra Cheraka", email = "mouna.cerra-cheraka@chuv.ch" },
-]
+authors = ["Mouna Cerra Cheraka <mouna.cerra-cheraka@chuv.ch>"]
+license = "Apache 2.0"
 readme = "README.md"
-
-dependencies = [
-    "duckdb",
-    "streamlit",
-    "xlsxwriter",
-    "pyyaml",
-    "pyinstrument"
+packages = [
+    { include = "src" }
 ]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+duckdb = "*"
+streamlit = "*"
+xlsxwriter = "*"
+pyyaml = "*"
+pyinstrument = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
