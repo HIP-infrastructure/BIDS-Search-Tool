@@ -1,6 +1,6 @@
 [project]
 requires-python = ">=3.9"
-name = "BIDS-Search-Tool"
+name = "bidssearchtool"
 version = "1.0.0"
 description = ""
 authors = [
