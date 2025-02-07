@@ -3,11 +3,12 @@ import os
 # Could maybe be a class at some point?
 
 # USER CONFIG
-project_path = os.getenv('PROJECT_PATH')
+project_path = '/apps/bidssearchtool/BIDS-Search_tool'
+#project_path = os.getenv('PROJECT_PATH')
 print("PROJECT PATH IS " + project_path)
 
 def get_user_bids_path():
-    filename = os.path.join(project_path, 'user-config.yaml')
+    filename = os.path.join(project_path, 'src/user-config.yaml')
     with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     file.close()
@@ -15,7 +16,7 @@ def get_user_bids_path():
 
 
 def get_extraction_successful():
-    filename = os.path.join(project_path, 'user-config.yaml')
+    filename = os.path.join(project_path, 'src/user-config.yaml')
     with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     file.close()
@@ -23,7 +24,7 @@ def get_extraction_successful():
 
 
 def update_user_path(value):
-    filename = os.path.join(project_path, 'user-config.yaml')
+    filename = os.path.join(project_path, 'src/user-config.yaml')
     if(not value.endswith('/')):
         value = value + '/'
     with open(filename, 'r') as file:
@@ -37,7 +38,7 @@ def update_user_path(value):
     file.close()
     
 def update_extraction_value(value):
-    filename = os.path.join(project_path, 'user-config.yaml')
+    filename = os.path.join(project_path, 'src/user-config.yaml')
     with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     
@@ -49,7 +50,7 @@ def update_extraction_value(value):
     file.close()
     
 def get_output_file_names():
-    filename = os.path.join(project_path, 'config.yaml')
+    filename = os.path.join(project_path, 'src/config.yaml')
     with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     
