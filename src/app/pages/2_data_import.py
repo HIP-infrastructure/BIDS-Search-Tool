@@ -1,7 +1,7 @@
 from pathlib import Path
 import streamlit as st
 from bids_extraction import bids_indexer
-import app.Configuration as config
+import src.Configuration as config
 import subprocess
 import sys
 

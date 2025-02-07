@@ -1,5 +1,5 @@
 import streamlit as st
-from app import Configuration as config
+from src import Configuration as config
 from bids_extraction import bids_indexer
 from pathlib import Path
 

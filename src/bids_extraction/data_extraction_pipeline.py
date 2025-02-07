@@ -1,7 +1,7 @@
 import  bids_indexer
 import aggregator
 import load
-import app.Configuration as config
+import src.Configuration as config
 import pandas as pd
 import os
 from pathlib import Path
