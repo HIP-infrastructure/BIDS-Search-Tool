@@ -1,48 +1,56 @@
 import yaml
+import os
 # Could maybe be a class at some point?
 
 # USER CONFIG
 
+here = os.path.dirname(os.path.abspath(__file__))
+
 def get_user_bids_path():
-    with open('src/user_config.yaml', 'r') as file:
+    filename = os.path.join(here, 'user_config.yaml')
+    with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     file.close()
     return config['bids_path']
 
 
 def get_extraction_successful():
-    with open('src/user_config.yaml', 'r') as file:
+    filename = os.path.join(here, 'user_config.yaml')
+    with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     file.close()
     return config['extraction_successful']
 
 
 def update_user_path(value):
+    filename = os.path.join(here, 'user_config.yaml')
     if(not value.endswith('/')):
         value = value + '/'
-    with open('src/user_config.yaml', 'r') as file:
+    with open(filename, 'r') as file:
         config = yaml.safe_load(file)
   
     config['bids_path'] = value
 
-    with open('src/user_config.yaml', 'w') as file:
+    with open(filename, 'w') as file:
         yaml.dump(config, file)
 
     file.close()
     
 def update_extraction_value(value):
-    with open('src/user_config.yaml', 'r') as file:
+    filename = os.path.join(here, 'user_config.yaml')
+    with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     
     config['extraction_successful'] = value
 
-    with open('src/user_config.yaml', 'w') as file:
+    with open(filename, 'w') as file:
         yaml.dump(config, file)
 
     file.close()
     
 def get_output_file_names():
-    with open('src/config.yaml', 'r') as file:
+    filename = os.path.join(here, 'config.yaml')
+    with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     
     file.close()
