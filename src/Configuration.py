@@ -4,10 +4,8 @@ import os
 
 # USER CONFIG
 
-here = os.path.dirname(os.path.abspath(__file__))
-
 def get_user_bids_path():
-    filename = os.path.join(here, 'user_config.yaml')
+    filename = os.path.join(os.getcwd(), 'user-config.yaml')
     with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     file.close()
@@ -15,7 +13,7 @@ def get_user_bids_path():
 
 
 def get_extraction_successful():
-    filename = os.path.join(here, 'user_config.yaml')
+    filename = os.path.join(os.getcwd(), 'user-config.yaml')
     with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     file.close()
@@ -23,7 +21,7 @@ def get_extraction_successful():
 
 
 def update_user_path(value):
-    filename = os.path.join(here, 'user_config.yaml')
+    filename = os.path.join(os.getcwd(), 'user-config.yaml')
     if(not value.endswith('/')):
         value = value + '/'
     with open(filename, 'r') as file:
@@ -37,7 +35,7 @@ def update_user_path(value):
     file.close()
     
 def update_extraction_value(value):
-    filename = os.path.join(here, 'user_config.yaml')
+    filename = os.path.join(os.getcwd(), 'user-config.yaml')
     with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     
@@ -49,7 +47,7 @@ def update_extraction_value(value):
     file.close()
     
 def get_output_file_names():
-    filename = os.path.join(here, 'config.yaml')
+    filename = os.path.join(os.getcwd(), 'config.yaml')
     with open(filename, 'r') as file:
         config = yaml.safe_load(file)
     
