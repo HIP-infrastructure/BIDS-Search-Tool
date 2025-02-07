@@ -1,13 +1,13 @@
 import streamlit as st
-import app.Configuration as config
+from app import Configuration as config
 from bids_extraction import bids_indexer
 from pathlib import Path
 
-data_import_page = st.Page("pages/2_data_import.py", title="Data Import")
-participants_search_page = st.Page("pages/3_participants_search.py", title="Participants Search")
-ieeg_page = st.Page("pages/4_ieeg.py", title="iEEG")
-eeg_page = st.Page("pages/5_eeg.py", title="EEG")
-dataset_search_demo_page = st.Page("pages/6_dataset_search_demo.py", title="Plaform Search Simulation")
+data_import_page = st.Page("app/pages/2_data_import.py", title="Data Import")
+participants_search_page = st.Page("app/pages/3_participants_search.py", title="Participants Search")
+ieeg_page = st.Page("app/pages/4_ieeg.py", title="iEEG")
+eeg_page = st.Page("app/pages/5_eeg.py", title="EEG")
+dataset_search_demo_page = st.Page("app/pages/6_dataset_search_demo.py", title="Plaform Search Simulation")
 data_extracted = config.get_extraction_successful()
 path = config.get_user_bids_path()
 
