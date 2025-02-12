@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 default_user_folder = "Documents"
-extraction_script_path = Path(__file__).resolve().parent.parent / 'src' / 'bids_extraction' / 'data_extraction_pipeline.py'
+extraction_script_path = Path(__file__).resolve().parent.parent.parent / 'bids_extraction' / 'data_extraction_pipeline.py'
 
 def save_path():
    config.update_user_path(current_bids_folder)
