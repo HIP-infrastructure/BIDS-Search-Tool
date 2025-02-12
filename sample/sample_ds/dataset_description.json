@@ -1,0 +1,16 @@
+{
+  "Name": "Dummy dataset",
+  "BIDSVersion": "X.Y.Z",
+  "HEDVersion": "X.Y.Z",
+  "DatasetType": "raw",
+  "License": "None",
+  "Authors": [
+    "Mouna Cerra Cheraka"
+  ],
+  "Acknowledgements": "NeuroDigital Lab",
+  "HowToAcknowledge": "",
+  "EthicsApprovals": [
+    ""
+  ],
+  "DatasetDOI": ""
+}
