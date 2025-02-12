@@ -1,18 +1,20 @@
 from src.db.duckdb_singleton import DuckDBSingleton
 import os
+from pathlib import Path
 
 # TODO: get these paths from config
-dataset_metadata_csv = "data/csv_files/datasets_metadata.csv"
-participant_metadata_csv = "data/csv_files/participants_metadata.csv"
-ieeg_electrodes_metadata_csv = "data/csv_files/ieeg_electrodes_metadata.csv"
-ieeg_sessions_metadata_csv = "data/csv_files/ieeg_sessions_metadata.csv"
-eeg_sessions_metadata_csv = "data/csv_files/eeg_sessions_metadata.csv"
+project_dir = Path(__file__).resolve().parent.parent.parent
+dataset_metadata_csv = (project_dir / "data/csv_files/datasets_metadata.csv").as_posix()
+participant_metadata_csv = (project_dir / "data/csv_files/participants_metadata.csv").as_posix()
+ieeg_electrodes_metadata_csv = (project_dir / "data/csv_files/ieeg_electrodes_metadata.csv").as_posix()
+ieeg_sessions_metadata_csv = (project_dir / "data/csv_files/ieeg_sessions_metadata.csv").as_posix()
+eeg_sessions_metadata_csv = (project_dir / "data/csv_files/eeg_sessions_metadata.csv").as_posix()
 
-dataset_parquet = "data/parquet_files/datasets_metadata.parquet"
-participants_parquet = "data/parquet_files/participants_data.parquet"
-ieeg_electrodes_parquet = "data/parquet_files/ieeg_electrodes_data.parquet"
-ieeg_sessions_parquet = "data/parquet_files/ieeg_sessions_data.parquet"
-eeg_sessions_parquet = "data/parquet_files/eeg_sessions_data.parquet"
+dataset_parquet = (project_dir / "data/parquet_files/datasets_metadata.parquet").as_posix()
+participants_parquet = (project_dir / "data/parquet_files/participants_data.parquet").as_posix()
+ieeg_electrodes_parquet = (project_dir / "data/parquet_files/ieeg_electrodes_data.parquet").as_posix()
+ieeg_sessions_parquet = (project_dir / "data/parquet_files/ieeg_sessions_data.parquet").as_posix()
+eeg_sessions_parquet = (project_dir / "data/parquet_files/eeg_sessions_data.parquet").as_posix()
 
 singleton = DuckDBSingleton()
 
