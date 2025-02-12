@@ -3,10 +3,12 @@ import aggregator
 import load
 import src.Configuration as config
 import pandas as pd
-import os
 from pathlib import Path
 from pyinstrument import Profiler
 from pyinstrument.renderers import ConsoleRenderer
+
+src_path = Path(__file__).resolve().parent.parent.parent
+
 
 # PROFILING
 profiler = Profiler()
@@ -44,7 +46,7 @@ df_datasets = pd.concat(datasets_metadata)
 if df_datasets.empty:
         raise Exception("Dataset description data could not be extracted")
 
-csv_path = Path(os.getcwd(), dataset_metadata_csv)
+csv_path = Path(src_path, dataset_metadata_csv)
 df_datasets.to_csv(csv_path, sep='\t', index=False)
 
 df_participants_all = pd.DataFrame()
@@ -65,9 +67,9 @@ if(not len(ieeg_datasets) == 0):
     if df_ieeg_electrodes.empty or df_ieeg_runs.empty:
         raise Exception("iEEG data could not be extracted")
 
-    csv_path_electrodes = Path(os.getcwd(), ieeg_electrodes_metadata_csv)
+    csv_path_electrodes = Path(src_path, ieeg_electrodes_metadata_csv)
     df_ieeg_electrodes.to_csv(csv_path_electrodes, sep='\t', index=False) 
-    csv_path_runs = Path(os.getcwd(), ieeg_sessions_metadata_csv)
+    csv_path_runs = Path(src_path, ieeg_sessions_metadata_csv)
     df_ieeg_runs.to_csv(csv_path_runs, sep='\t', index=False)
         
 if(not len(eeg_datasets) == 0):
@@ -77,7 +79,7 @@ if(not len(eeg_datasets) == 0):
     if df_eeg_sessions.empty:
         raise Exception("EEG data could not be extracted")
     else:
-        csv_path = Path(os.getcwd(), eeg_sessions_metadata_csv)
+        csv_path = Path(src_path, eeg_sessions_metadata_csv)
         df_eeg_sessions.to_csv(csv_path, sep='\t', index=False)
     
     
@@ -86,7 +88,7 @@ df_participants_all = aggregator.get_participants_metadata(path, datasets_all, d
 if df_participants_all.empty:
         raise Exception("Participants data could not be extracted")
 
-csv_path = Path(os.getcwd(), participant_metadata_csv)
+csv_path = Path(src_path, participant_metadata_csv)
 df_participants_all.to_csv(csv_path, sep='\t', index=False)
 
 load.write_data_to_parquet()   

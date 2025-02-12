@@ -3,7 +3,6 @@ import pandas as pd
 import uuid
 import bids_indexer
 from pathlib import Path
-import time
 
 
 # TODO: get this from config

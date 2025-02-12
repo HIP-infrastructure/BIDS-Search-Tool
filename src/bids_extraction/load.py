@@ -1,4 +1,4 @@
-from db.duckdb_singleton import DuckDBSingleton
+from src.db.duckdb_singleton import DuckDBSingleton
 import os
 
 # TODO: get these paths from config
