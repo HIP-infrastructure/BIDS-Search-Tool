@@ -12,7 +12,7 @@ def save_path():
    config.update_user_path(current_bids_folder)
       
 def extract_data():
-   subprocess.run([f"{sys.executable}", "src/bids_extraction/data_extraction_pipeline.py"])
+   subprocess.run([f"{sys.executable}", extraction_script_path])
 
 # Définir les extensions de fichiers que vous souhaitez inclure
 allowed_extensions = ('.json', '.csv', '.tsv', '.TRC', '.eeg', '.edf')
