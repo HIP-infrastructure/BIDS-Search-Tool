@@ -72,9 +72,9 @@ else
 fi
 
 echo "Finally, launching app in browser..."
-streamlit run src/app/start.py
+streamlit run src/start.py
 if [ $? -eq 0 ]; then
-    echo "SUCCEEDED 'streamlit run src/app/start.py'"
+    echo "SUCCEEDED 'streamlit run src/start.py'"
 else
-    echo "FAILED 'streamlit run src/app/start.py'"
+    echo "FAILED 'streamlit run src/start.py'"
 fi

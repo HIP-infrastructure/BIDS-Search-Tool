@@ -1,60 +1,56 @@
 import yaml
-import os
+from pathlib import Path
 # Could maybe be a class at some point?
 
-# USER CONFIG
-project_path = '/apps/bidssearchtool/BIDS-Search_tool'
-#project_path = os.getenv('PROJECT_PATH')
-print("PROJECT PATH IS " + project_path)
+# Get the directory where the script is located
+project_dir = Path.cwd()
+print("project dir = " + project_dir.as_posix())
+user_config_path = project_dir / 'src' / 'user_config.yaml'
+config_path = project_dir / 'src' / 'config.yaml'
+
+print("User config path = " + user_config_path.as_posix())
+print("Config path = " + config_path.as_posix())
 
 def get_user_bids_path():
-    filename = os.path.join(project_path, 'src/user-config.yaml')
-    with open(filename, 'r') as file:
+    with open(user_config_path, 'r') as file:
         config = yaml.safe_load(file)
     file.close()
     return config['bids_path']
 
-
 def get_extraction_successful():
-    filename = os.path.join(project_path, 'src/user-config.yaml')
-    with open(filename, 'r') as file:
+    with open(user_config_path, 'r') as file:
         config = yaml.safe_load(file)
     file.close()
     return config['extraction_successful']
 
 
 def update_user_path(value):
-    filename = os.path.join(project_path, 'src/user-config.yaml')
     if(not value.endswith('/')):
         value = value + '/'
-    with open(filename, 'r') as file:
+    with open(user_config_path, 'r') as file:
         config = yaml.safe_load(file)
   
     config['bids_path'] = value
 
-    with open(filename, 'w') as file:
+    with open(user_config_path, 'w') as file:
         yaml.dump(config, file)
 
     file.close()
     
 def update_extraction_value(value):
-    filename = os.path.join(project_path, 'src/user-config.yaml')
-    with open(filename, 'r') as file:
+    with open(user_config_path, 'r') as file:
         config = yaml.safe_load(file)
     
     config['extraction_successful'] = value
 
-    with open(filename, 'w') as file:
+    with open(user_config_path, 'w') as file:
         yaml.dump(config, file)
 
     file.close()
     
 def get_output_file_names():
-    filename = os.path.join(project_path, 'src/config.yaml')
-    with open(filename, 'r') as file:
+    with open(config_path, 'r') as file:
         config = yaml.safe_load(file)
     
     file.close()
     config['extract_load']['output_file_names']
-
-
