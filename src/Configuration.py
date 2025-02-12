@@ -3,10 +3,14 @@ from pathlib import Path
 # Could maybe be a class at some point?
 
 # Get the directory where the script is located
-project_dir = Path.cwd()
-print("project dir = " + project_dir.as_posix())
-user_config_path = project_dir / 'src' / 'user_config.yaml'
-config_path = project_dir / 'src' / 'config.yaml'
+#project_dir = Path.cwd()
+script_dir = Path(__file__).resolve().parent
+#print("project dir = " + project_dir.as_posix())
+# user_config_path = project_dir / 'src' / 'user_config.yaml'
+# config_path = project_dir / 'src' / 'config.yaml'
+
+user_config_path = script_dir / 'user_config.yaml'
+config_path = script_dir / 'config.yaml'
 
 print("User config path = " + user_config_path.as_posix())
 print("Config path = " + config_path.as_posix())
