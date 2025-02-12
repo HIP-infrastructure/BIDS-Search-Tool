@@ -1,6 +1,6 @@
 import streamlit as st
 from queries import dataset_queries
-import app_utils
+import src.app.app_utils as app_utils
 from queries import query_helper
 
 @st.cache_resource

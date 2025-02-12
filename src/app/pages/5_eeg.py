@@ -1,7 +1,7 @@
 import streamlit as st
 from queries import eeg_data_queries
 from queries import query_helper
-import app_utils
+import src.app.app_utils as app_utils
 
 @st.cache_resource
 def init_field_values(field):

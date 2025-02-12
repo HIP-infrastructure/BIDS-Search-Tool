@@ -1,7 +1,7 @@
 import streamlit as st
 from queries import ieeg_data_queries
 from queries import query_helper
-import app_utils
+import src.app.app_utils as app_utils
 from options import iEEGData
 
 @st.cache_resource
