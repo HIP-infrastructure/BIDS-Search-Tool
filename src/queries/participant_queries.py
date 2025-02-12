@@ -1,7 +1,9 @@
 from db.duckdb_singleton import DuckDBSingleton
+from pathlib import Path
 
 # TODO Get this from config
-participants_parquet_path = 'data/parquet_files/participants_data.parquet'
+project_dir = Path(__file__).resolve().parent.parent.parent
+participants_parquet_path = (project_dir / 'data/parquet_files/participants_data.parquet').as_posix()
 
 singleton = DuckDBSingleton()
 

@@ -1,9 +1,11 @@
 from db.duckdb_singleton import DuckDBSingleton
 from options import iEEGData
+from pathlib import Path
 
 # TODO Get this from config
-ieeg_sessions_parquet_path = 'data/parquet_files/ieeg_sessions_data.parquet'
-ieeg_electrodes_parquet_path = 'data/parquet_files/ieeg_electrodes_data.parquet'
+project_dir = Path(__file__).resolve().parent.parent.parent
+ieeg_sessions_parquet_path = (project_dir / 'data/parquet_files/ieeg_sessions_data.parquet').as_posix()
+ieeg_electrodes_parquet_path = (project_dir / 'data/parquet_files/ieeg_electrodes_data.parquet').as_posix()
 
 singleton = DuckDBSingleton()
 
