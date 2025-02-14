@@ -98,8 +98,7 @@ def get_runs_metadata(bids_path, participants_metadata, modality):
     runs_metadata = pd.concat(content)
 
     print("runs metadata done")
-    return runs_metadata     
-    
+    return runs_metadata        
     
 def get_runs(dataset_folder, participant_id, session_path, modality, dataset_fk, participant_fk):
     run_files = bids_indexer.get_tasks_for_participant(session_path, modality)
@@ -124,7 +123,6 @@ def get_runs(dataset_folder, participant_id, session_path, modality, dataset_fk,
    
     
 def extract_json_data_as_dataframe(path):
-    #tic = time.perf_counter()
     json_path = path
     # Opening JSON file
     with open(json_path) as json_file:
@@ -132,9 +130,4 @@ def extract_json_data_as_dataframe(path):
     
     data = pd.json_normalize(data)
     df = pd.DataFrame(data)
-    #toc = time.perf_counter()
-    #print(f"json extracted in {toc - tic:0.4f} seconds")
     return df   
-
-
-

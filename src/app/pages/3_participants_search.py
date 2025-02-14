@@ -53,7 +53,7 @@ maxAge = age_range[-1]
 minSession = sessions_range[0] 
 maxSession = sessions_range[-1]
 if (minSession != maxSession):  
-    df3 = participant_queries.fetch_participants_by_criteria(minAge, maxAge, minSession, maxSession, sex, hand).df()
+    df3 = participant_queries.fetch_participants_by_criteria(minAge, maxAge, minSession, maxSession, sex, hand, available_field_list).df()
     app_utils.display_large_df(df3)
 else:
     raise Exception("Your dataset seems incomplete, your participants don't have any sessions.")

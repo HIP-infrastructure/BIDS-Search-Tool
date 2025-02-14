@@ -75,7 +75,7 @@ if(not len(ieeg_datasets) == 0):
 if(not len(eeg_datasets) == 0):
     df_participants_eeg = aggregator.get_participants_metadata(path, eeg_datasets, df_datasets)
     df_eeg_sessions = aggregator.get_runs_metadata(path, df_participants_eeg, "eeg")
-    # TODO extract other relevant data for EEG
+    # TODO extract other relevant data for EEG, ask users what they want
     if df_eeg_sessions.empty:
         raise Exception("EEG data could not be extracted")
     else:

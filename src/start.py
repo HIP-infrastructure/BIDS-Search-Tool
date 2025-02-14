@@ -3,11 +3,12 @@ from src import Configuration as config
 from bids_extraction import bids_indexer
 from pathlib import Path
 
+# Commented part: A page that shows what a "platform wide" BIDS Dataset search could look like." It also shows queries accross paquet files.
 data_import_page = st.Page("app/pages/2_data_import.py", title="Data Import")
 participants_search_page = st.Page("app/pages/3_participants_search.py", title="Participants Search")
 ieeg_page = st.Page("app/pages/4_ieeg.py", title="iEEG")
 eeg_page = st.Page("app/pages/5_eeg.py", title="EEG")
-dataset_search_demo_page = st.Page("app/pages/6_dataset_search_demo.py", title="Plaform Search Simulation")
+#dataset_search_demo_page = st.Page("app/pages/6_dataset_search_demo.py", title="Plaform Search Simulation")
 data_extracted = config.get_extraction_successful()
 path = config.get_user_bids_path()
 
@@ -26,15 +27,15 @@ else:
         modalities.append(eeg_page)
     
     pg = st.navigation({
-        "Data import": [data_import_page],
+        "Metadata extraction": [data_import_page],
         "Participants Search": [participants_search_page],
         "Modality Search": modalities,
-        "DEMO": [dataset_search_demo_page],
+        #"DEMO": [dataset_search_demo_page],
     })
 
 
     
 #with st.sidebar:
-st.header("🔎 BIDS Search Tool 🧠")
+st.header("BIDS Search Tool")
     
 pg.run()

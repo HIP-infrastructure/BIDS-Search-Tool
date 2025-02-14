@@ -33,6 +33,7 @@ def get_min_field_value(field):
     min_value = singleton.query(query).fetchall()
     return [value[0] for value in min_value]
 
+
 #####################
 
 def fetch_participant(participants_ids):
@@ -42,24 +43,51 @@ def fetch_participant(participants_ids):
     '''.format(participants_parquet_path)
     return singleton.query(query, parameters=[in_statement])
 
-def fetch_participants_by_criteria(minAge, maxAge, minSessions, maxSessions, sex, hand):
+def column_exists(field, all_fields):
+    if field in all_fields:
+        return True
+    else:
+        return False
+
+# TODO Improve this because it's clunky and won't scale with adding more filters... With the future work that I documented this should improve a lot
+def fetch_participants_by_criteria(minAge, maxAge, minSessions, maxSessions, sex, hand, all_fields):
     in_statement_hand = f"""('{"', '".join(hand)}')"""
     in_statement_sex = f"""('{"', '".join(sex)}')"""
-    parameters = [minAge, maxAge, minSessions, maxSessions]
+    parameters = [minSessions, maxSessions]
+    
+    ageExists = column_exists('age', all_fields)
+    sexExists = column_exists('sex', all_fields)
+    handExists = column_exists('hand', all_fields)
     
     query = '''
-        SELECT * EXCLUDE (participant_uid, dataset_fk) FROM '{0}' WHERE (age BETWEEN $1 AND $2) AND nb_sessions BETWEEN $3 AND $4
+        SELECT * EXCLUDE (participant_uid, dataset_fk) FROM '{0}'
+        WHERE nb_sessions BETWEEN $1 AND $2
         '''.format(participants_parquet_path)
 
-    if(len(sex) == 0):
-        if(len(hand) > 0):
-            query += ' AND hand IN $5'
-            parameters.append(in_statement_hand)
-    if(len(sex) != 0):
-        query += ' AND sex IN $5'
-        parameters.append(in_statement_sex)
-        if(len(hand) > 0):
-            query += ' AND hand IN $6'
-            parameters.append(in_statement_hand)
+    if(ageExists and (minAge != maxAge)):
+        query += ' AND age BETWEEN $3 AND $4'
+        parameters.append(minAge)
+        parameters.append(maxAge)
+        if(len(sex) == 0):
+            if(len(hand) > 0 and handExists):
+                query += ' AND hand IN $5'
+                parameters.append(in_statement_hand)
+        if(len(sex) > 0 and sexExists):
+            query += ' AND sex IN $5'
+            parameters.append(in_statement_sex)
+            if(len(hand) > 0 and handExists):
+                query += ' AND hand IN $6'
+                parameters.append(in_statement_hand)
+    if(not ageExists):      
+        if(len(sex) == 0):
+            if(len(hand) > 0 and handExists):
+                query += ' AND hand IN $3'
+                parameters.append(in_statement_hand)
+        if(len(sex) > 0 and sexExists):
+            query += ' AND sex IN $3'
+            parameters.append(in_statement_sex)
+            if(len(hand) > 0 and sexExists):
+                query += ' AND hand IN $4'
+                parameters.append(in_statement_hand)
     
     return singleton.query(query, parameters=parameters)

@@ -23,8 +23,8 @@ with st.sidebar:
     st.header("Dataset search:")
     if "nb_participants" in available_fields_list and min_participants != max_participants:
         nb_participants_range = st.slider("Number of participants", min_participants, max_participants, (min_participants, max_participants))
-        minParticipants = nb_participants_range[0]
-        maxParticipants = nb_participants_range[-1]
+    minParticipants = nb_participants_range[0]
+    maxParticipants = nb_participants_range[-1]
     if "Authors" in available_fields_list:
         authors = st.multiselect("Authors", authors_values)
 

@@ -35,8 +35,9 @@ def run_extraction():
 
  
  
-st.subheader("Data import")
+st.subheader("Metadata extraction")
 
+st.markdown("This part allows you to select a directory that contains one or more BIDS datasets. You can save this path and then extract the metadata through which you will search.")
 user_path = config.get_user_bids_path()
 if(user_path is None or not Path(user_path).is_dir()):
    default_path = Path(Path.home(), default_user_folder)
@@ -53,9 +54,9 @@ is_bids_compliant = bids_indexer.is_bids_path(current_bids_folder)
 is_bids_compliant = bids_indexer.is_bids_path(current_bids_folder)
 st.write("Current folder is: " + current_bids_folder)
 if is_bids_compliant:
-   st.write("✅ The selected folder contains at least 1 BIDS compliant dataset.")
+   st.write(''':green[The selected folder contains at least 1 BIDS compliant dataset.]''')
 else:
-   st.markdown(''':red[❌ No BIDS compliant dataset(s) found in this path, please try again.]''')
+   st.markdown(''':red[No BIDS compliant dataset(s) found in this path, please try again.]''')
 
 st.markdown(''':red[Don't forget to SAVE your path!]''')
 save_button = st.button(label="Save path", on_click=save_path, disabled= not is_bids_compliant)
