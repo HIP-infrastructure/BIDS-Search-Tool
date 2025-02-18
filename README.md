@@ -15,11 +15,11 @@ This is how you install the app locally:
 ## data:
 The data folder is used for the folders that will contain the generated parquet files, as well as the intermediary csv files.
 
-2 folders are created inside it either when running install.sh locally or when the app is built for the HIP:
+Two folders are created inside it either when running ```./install.sh```  locally or when the app is built for the HIP:
+- csv_files
+- parquet_files
 
-## csv_files
-parquet_files
-The folder parquet_files on the HIP also get a symbolic link to a folder of the same name created in app_data/bidssearchtool which will make the data persistent (saved in between restarts of the app container).
+The folder _parquet_files_ on the HIP also has a symbolic link to a folder of the same name created in app_data/bidssearchtool which will make the data persistent (saved in between restarts of the app container).
 
 ## sample
 The sample folder contains dummy dataset metadata. It is used for demo purposes if no datasets are available.
