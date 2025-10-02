@@ -129,6 +129,10 @@ env.bak/
 venv.bak/
 .streamlit/
 
+# Project-specific generated data
+data/csv_files/
+data/parquet_files/
+
 # Spyder project settings
 .spyderproject
 .spyproject
