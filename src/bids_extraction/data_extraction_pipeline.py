@@ -1,19 +1,27 @@
-import  bids_indexer
+import bids_indexer
 import aggregator
 import load
 import src.Configuration as config
 import pandas as pd
+import logging
 from pathlib import Path
 from pyinstrument import Profiler
-from pyinstrument.renderers import ConsoleRenderer
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 src_path = Path(__file__).resolve().parent.parent.parent
 
+# Conditional profiling based on config
+profiler = None
+if config.get_profiling_enabled():
+    profiler = Profiler()
+    profiler.start()
+    logger.info("Performance profiling enabled")
 
-# PROFILING
-profiler = Profiler()
-profiler.start()
-# PROFILING
 # TODO: get these paths from config
 dataset_description_json = "dataset_description.json"
 dataset_metadata_csv = "data/csv_files/datasets_metadata.csv"
@@ -28,8 +36,7 @@ df_participants_eeg = pd.DataFrame()
 df_participants_ieeg = pd.DataFrame()
 path = config.get_user_bids_path()
 datasets_all = bids_indexer.list_datasets_in_root_directory(path)
-print("Found datasets : ")
-print(datasets_all)
+logger.info(f"Found {len(datasets_all)} datasets: {datasets_all}")
 
 ieeg_datasets = []
 eeg_datasets = []
@@ -91,8 +98,20 @@ if df_participants_all.empty:
 csv_path = Path(src_path, participant_metadata_csv)
 df_participants_all.to_csv(csv_path, sep='\t', index=False)
 
-load.write_data_to_parquet()   
+load.write_data_to_parquet()
 config.update_extraction_value(True)
-    
-profiler.stop()
-profiler.print()
+logger.info("Data extraction completed successfully")
+
+# End profiling conditionally
+if profiler:
+    profiler.stop()
+    profiling_output = config.get_profiling_output()
+
+    if profiling_output in ['console', 'both']:
+        profiler.print()
+
+    if profiling_output in ['file', 'both']:
+        output_path = src_path / 'data' / 'profiling_results.html'
+        with open(output_path, 'w') as f:
+            f.write(profiler.output_html())
+        logger.info(f"Profiling results saved to {output_path}")

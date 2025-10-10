@@ -1,7 +1,10 @@
 import streamlit as st
+import logging
 from src import Configuration as config
 from bids_extraction import bids_indexer
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 # Commented part: A page that shows what a "platform wide" BIDS Dataset search could look like." It also shows queries accross paquet files.
 data_import_page = st.Page("app/pages/2_data_import.py", title="Data Import")
@@ -18,13 +21,13 @@ if(not data_extracted):
     })
 else:
     modalities = []
-    print("path in app: " + path)
-    print("path converted in app: ")
-    print(Path(path))
+    logger.debug(f"BIDS path in app: {path}")
     if(bids_indexer.root_has_modality(path, "ieeg")):
         modalities.append(ieeg_page)
+        logger.debug("iEEG modality detected")
     if(bids_indexer.root_has_modality(path, "eeg")):
         modalities.append(eeg_page)
+        logger.debug("EEG modality detected")
     
     pg = st.navigation({
         "Metadata extraction": [data_import_page],

@@ -1,9 +1,12 @@
 from pathlib import Path
 import streamlit as st
+import logging
 from bids_extraction import bids_indexer
 import src.Configuration as config
 import subprocess
 import sys
+
+logger = logging.getLogger(__name__)
 
 default_user_folder = "Documents"
 extraction_script_path = Path(__file__).resolve().parent.parent.parent / 'bids_extraction' / 'data_extraction_pipeline.py'
@@ -41,7 +44,7 @@ st.markdown("This part allows you to select a directory that contains one or mor
 user_path = config.get_user_bids_path()
 if(user_path is None or not Path(user_path).is_dir()):
    default_path = Path(Path.home(), default_user_folder)
-   print(default_path)
+   logger.debug(f"Using default path: {default_path}")
    current_bids_folder = str(default_path)
    save_path()
 else:

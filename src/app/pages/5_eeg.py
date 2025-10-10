@@ -1,7 +1,10 @@
 import streamlit as st
+import logging
 from queries import eeg_data_queries
 from queries import query_helper
 import src.app.app_utils as app_utils
+
+logger = logging.getLogger(__name__)
 
 @st.cache_resource
 def init_field_values(field):
@@ -15,7 +18,7 @@ def init_task_name_field_values():
 
 ### Check what fields exist in paquet files
 available_fields = query_helper.get_available_eeg_fields()
-print(available_fields)
+logger.debug(f"Available EEG fields: {available_fields}")
 
 if "RecordingDuration" in available_fields:
     max_duration = int(eeg_data_queries.get_max_field_value("RecordingDuration")[0])

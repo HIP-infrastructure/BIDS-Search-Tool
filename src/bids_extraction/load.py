@@ -1,6 +1,9 @@
 from src.db.duckdb_singleton import DuckDBSingleton
 import os
+import logging
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 # TODO: get these paths from config
 project_dir = Path(__file__).resolve().parent.parent.parent
@@ -26,11 +29,9 @@ def create_table_from_csv(table_name, csv_file_path):
         delim = '\t',
         header = true);
     '''.format(table_name, csv_file_path)
-    print("query in load script: ")
-    print(query)
-    print(type(query))
+    logger.debug(f"Executing query to create table {table_name} from {csv_file_path}")
     singleton.write_new_data(query)
-    print("New table written to new database.")
+    logger.debug(f"Table {table_name} written to database")
     
 def write_parquet(table_name, parquet_output_path):
     query = '''
@@ -40,7 +41,7 @@ def write_parquet(table_name, parquet_output_path):
     (FORMAT 'parquet');
     '''.format(table_name, parquet_output_path)
     singleton.write_new_data(query)
-    print("New parquet written with new database.")
+    logger.debug(f"Parquet file written to {parquet_output_path}")
 
 def load_dataset_parquet():
     create_table_from_csv("t1", dataset_metadata_csv)
@@ -73,6 +74,5 @@ def write_data_to_parquet():
         load_ieeg_sessions_parquet()
     if os.path.exists(eeg_sessions_metadata_csv):
         load_eeg_sessions_parquet()
-        
-    print("All parquet files written, we can now replace the current db with the new.")
-    #singleton.replace_current_with_new()
+
+    logger.info("All parquet files written successfully")

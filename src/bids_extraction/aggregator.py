@@ -1,9 +1,11 @@
 import json
 import pandas as pd
 import uuid
+import logging
 import bids_indexer
 from pathlib import Path
 
+logger = logging.getLogger(__name__)
 
 # TODO: get this from config
 participants_tsv = "participants.tsv"
@@ -19,8 +21,8 @@ def build_dataset_metadata_df(bids_path, dataset_id, dataset_description_df):
     df.insert(2, 'folder_name', dataset_id)
     df.insert(3, 'nb_participants', nb_participants)
     df.insert(4, 'nb_files', nb_files)
-    print("df dataset done")
-    
+    logger.debug(f"Dataset metadata extraction complete for {dataset_id}")
+
     return df
 
 def get_participants_metadata(bids_path, dataset_ids, datasets_metadata):
@@ -43,9 +45,9 @@ def get_participants_metadata(bids_path, dataset_ids, datasets_metadata):
         df['dataset path'] = bids_path + dataset_id
         df['participant_uid'] = participant_iuds
         df['dataset_fk'] = dataset_fk_value
-        content.append(df)  
+        content.append(df)
     participants_metadata = pd.concat(content)
-    print("df participant done")
+    logger.debug(f"Participants metadata extraction complete, total participants: {len(participants_metadata)}")
     return participants_metadata
 
 def get_electrodes_metadata(bids_path, participants_metadata, modality):
@@ -96,8 +98,7 @@ def get_runs_metadata(bids_path, participants_metadata, modality):
             content.append(eeg_runs_metadata)
 
     runs_metadata = pd.concat(content)
-
-    print("runs metadata done")
+    logger.debug(f"Runs metadata extraction complete for modality {modality}, total runs: {len(runs_metadata)}")
     return runs_metadata        
     
 def get_runs(dataset_folder, participant_id, session_path, modality, dataset_fk, participant_fk):

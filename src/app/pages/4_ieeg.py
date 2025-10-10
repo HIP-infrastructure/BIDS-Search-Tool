@@ -1,8 +1,11 @@
 import streamlit as st
+import logging
 from queries import ieeg_data_queries
 from queries import query_helper
 import src.app.app_utils as app_utils
 from options import iEEGData
+
+logger = logging.getLogger(__name__)
 
 @st.cache_resource
 def init_region_field_values():
@@ -13,17 +16,17 @@ def init_region_field_values():
 def init_field_values(field, dataType):
     values = ieeg_data_queries.get_field_values(field, dataType).df()
     clean_values = values.mask(values.eq('None')).dropna()
-    print("init field value " + field)
+    logger.debug(f"Initialized field value for: {field}")
     return clean_values
 
 @st.cache_resource
 def init_min_value(field, dataType):
-    print("init min value of " + field)
+    logger.debug(f"Initialized min value of: {field}")
     return ieeg_data_queries.get_min_field_value(field, dataType)[0]
-    
+
 @st.cache_resource
 def init_max_value(field, dataType):
-    print("init max value of " + field)
+    logger.debug(f"Initialized max value of: {field}")
     return ieeg_data_queries.get_max_field_value(field, dataType)[0]
 
 ### Check what fields exist in paquet files

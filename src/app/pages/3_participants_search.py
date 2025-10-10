@@ -1,13 +1,16 @@
 import streamlit as st
+import logging
 from queries import participant_queries
 import src.app.app_utils as app_utils
 from queries import query_helper
+
+logger = logging.getLogger(__name__)
 
 @st.cache_resource
 def init_field_values(field):
     values = participant_queries.get_field_values(field).df()
     clean_values = values.mask(values.eq('None')).dropna()
-    print("init value " + field)
+    logger.debug(f"Initialized field values for: {field}")
     return clean_values
    
 available_field_list = query_helper.get_available_participants_field()

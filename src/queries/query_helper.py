@@ -6,6 +6,9 @@ import options
 import streamlit as st
 import pandas as pd
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def init_field_values(field):
@@ -36,7 +39,7 @@ def get_available_eeg_fields():
     data = eeg_data_queries.get_column_values()
     data_df = data.df()
     indexes = data_df.columns.tolist()
-    print(indexes)
+    logger.debug(f"Available EEG fields: {indexes}")
     return indexes
 
 def get_numerical_fields(field_list):
@@ -65,14 +68,12 @@ def get_filters():
     num_fields = get_numerical_fields(fields)
     non_num_fields = get_non_numeric_fields(fields)
     
-    sliders = [] 
-    drop_downs = [] 
-    
-    print("numerical fields:")
-    print(num_fields)
-    print("non numerical fields:")
-    print(non_num_fields)
-    
+    sliders = []
+    drop_downs = []
+
+    logger.debug(f"Numerical fields: {num_fields}")
+    logger.debug(f"Non-numerical fields: {non_num_fields}")
+
     for nf in num_fields:
         #get min max values here
         sliders.append(st.slider(nf, 0, 99, (0, 99)))

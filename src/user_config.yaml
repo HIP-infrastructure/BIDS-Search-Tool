@@ -1,3 +1,4 @@
----
-bids_path: /apps/bidssearchtool/BIDS-Search-Tool/sample
+bids_path: /Users/fl6985/Desktop/
+enable_profiling: false
 extraction_successful: false
+profiling_output: console
